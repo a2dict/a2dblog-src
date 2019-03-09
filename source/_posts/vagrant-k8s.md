@@ -9,4 +9,4 @@ tags:
 搜索一番，果真有不少k8s的vagrantfile项目。我最终选择了[rootsongjc/kubernetes-vagrant-centos-cluster](https://github.com/rootsongjc/kubernetes-vagrant-centos-cluster)，一个由国人编写的项目。
 下面记录使用vagrant搭建k8s集群的过程。
 
-// @Deprecated 由于官方文档写得特别详细，不打算在些重复 :) 
+// @Deprecated 由于官方文档写得特别详细，不在此重复了 :) 
