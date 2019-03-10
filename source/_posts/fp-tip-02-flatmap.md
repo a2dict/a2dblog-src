@@ -135,7 +135,7 @@ data.data.categories.flatMap(ctg =>
 
 这种处理方式比多重for简单得多，不过多级flatMap心智负担也不小。
 如果是Haskell的话，处理起来会优雅得多。
-在Haskell中，List is Monad，Haskell为monad提供了 `<-` 语法，可以这样写
+在Haskell中，List is Monad，Haskell为monad提供了 `<-` 语法糖，可以这样写
 ```hs
 do
     ctg <- categories
