@@ -19,6 +19,6 @@ let underscoreToCamelcase = s => s.split('_').map(capitalize).join('')
 underscoreToCamelcase('abc_def_gh') // => AbcDefGh
 
 // 3.字符向量化
-'aaabbbbaaaccddd'.match(/(\w)+?(?!\1)/g).map(it => ''+it[0]+it.length).join(‘’) //"a3b4a3c2d3"
+'aaabbbbaaaccddd'.match(/(\w)+?(?!\1)/g).map(it => ''+it[0]+it.length).join('') //"a3b4a3c2d3"
 
 ```
