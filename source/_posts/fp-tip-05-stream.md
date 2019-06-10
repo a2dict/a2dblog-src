@@ -4,10 +4,10 @@ date: 2019-06-09 12:24:50
 tags: fp
 ---
 
-最近刚啃过遍神书《SICP》，想试试用JS纯FP实现流式编程。
+最近刚啃了遍《SICP》，想试试用JS纯FP实现流式编程。
 流式编程一种介于函数式编程与命令式编程之间的编程范式，它把**状态**看做关于时间t的流函数`y=x(t)`，这样就可以用纯函数处理状态的变化。
 
-Stream的概念和List很相似，但是Stream是状态关于时间的函数，所以理论上允许Stream的长度是无穷的。List不具备处理无穷的能力，所以需要引入`惰性计算`，定义无穷流。下面是Stream的JS纯FP实现
+Stream的概念和List很相似，但是Stream是状态关于时间的函数，所以理论上允许Stream的长度是无穷的。List不具备处理无穷的能力，所以需要引入`惰性计算`，定义无穷流。
 
 ```js
 // cons构件
@@ -21,7 +21,7 @@ const empty = cons()
 
 // 延时计算
 // force(delay(3)) == 3
-// 由于js不支持正则序，所以下面`delay(x)`写成`()=>x`，即 force(()=>3) == 3
+// 由于js不支持macro，所以下面`delay(x)`直接写成`()=>x`， `force(()=>3) == 3`
 const delay = obj => () => obj
 const force = delayed => delayed()
 // 流的头部，即s[0]
