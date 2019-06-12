@@ -30,6 +30,9 @@ const head = car
 const tail = s => force(cdr(s))
 // 流的第n位，即nth(s,n) == s[n]
 const nth = (s, n) => n == 0 ? head(s) : nth(tail(s), n - 1)
+// 取流的前n位
+const take_mid = (rec, s, n) => n <= 0 ? rec : take_mid(rec.concat(head(s)), tail(s), n - 1)
+const take = (s, n) => take_mid([], s, n)
 
 // map
 const stream_map = (s, m) => cons(m(head(s)), () => stream_map(tail(s), m))
@@ -46,6 +49,7 @@ const integers = cons(1, () => stream_add(integers, ones))
 const evens = stream_map(integers, x => 2*x)
 // [0,1,1,2,3,4,7 ...]
 const fibs = cons(0, () => cons(1, () => stream_add(fibs, tail(fibs))))
+console.log(take(fibs, 10))
 ```
 I hate js.
 
