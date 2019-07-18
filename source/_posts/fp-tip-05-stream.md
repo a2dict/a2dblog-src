@@ -10,6 +10,7 @@ tags: fp
 Stream的概念和List很相似，但是Stream是状态关于时间的函数，所以理论上允许Stream的长度是无穷的。List不具备处理无穷的能力，所以需要引入`惰性计算`，定义无穷流。
 
 ```js
+
 // cons构件
 // let pair = cons(3, 5)
 // car(pair) == 3
@@ -24,6 +25,19 @@ const empty = cons()
 // 由于js不支持macro，所以下面`delay(x)`直接写成`()=>x`， `force(()=>3) == 3`
 const delay = obj => () => obj
 const force = delayed => delayed()
+// 增加延时缓存
+// force(cache(()=>3)) == 3
+function cache(delayed) {
+    var t;
+    return () => {
+        if (typeof (t) === 'undefined') {
+            t = delayed()
+        }
+        return t
+    }
+}
+// 流构件，增加缓存
+const stream_cons = (a, b) => cons(a, cache(b))
 // 流的头部，即s[0]
 const head = car
 // 流的尾部，即s[1:]
@@ -35,20 +49,20 @@ const take_mid = (rec, s, n) => n <= 0 ? rec : take_mid(rec.concat(head(s)), tai
 const take = (s, n) => take_mid([], s, n)
 
 // map
-const stream_map = (s, m) => cons(m(head(s)), () => stream_map(tail(s), m))
+const stream_map = (s, m) => stream_cons(m(head(s)), () => stream_map(tail(s), m))
 // filter
-const stream_filter = (s, pred) => pred(head(s)) ? cons(head(s), () => stream_filter(tail(s), pred)) : stream_filter(tail(s), pred)
+const stream_filter = (s, pred) => pred(head(s)) ? stream_cons(head(s), () => stream_filter(tail(s), pred)) : stream_filter(tail(s), pred)
 
 // 
-const stream_add = (s1, s2) => cons(head(s1) + head(s2), () => stream_add(tail(s1), tail(s2)))
+const stream_add = (s1, s2) => stream_cons(head(s1) + head(s2), () => stream_add(tail(s1), tail(s2)))
 // [1,1,1,1 ...]
-const ones = cons(1, () => ones)
+const ones = stream_cons(1, () => ones)
 // [1,2,3,4 ...]
-const integers = cons(1, () => stream_add(integers, ones))
+const integers = stream_cons(1, () => stream_add(integers, ones))
 // [2,4,6,8 ...]
-const evens = stream_map(integers, x => 2*x)
-// [0,1,1,2,3,4,7 ...]
-const fibs = cons(0, () => cons(1, () => stream_add(fibs, tail(fibs))))
+const evens = stream_map(integers, x => 2 * x)
+// [0,1,1,2,3,4,7 ...] 斐波那契数列
+const fibs = stream_cons(0, () => stream_cons(1, () => stream_add(fibs, tail(fibs))))
 console.log(take(fibs, 10))
 ```
 I hate js.
