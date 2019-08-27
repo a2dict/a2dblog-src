@@ -26,7 +26,7 @@ def wordList = ["Groovy", "dynamic", "Grails", "Gradle", "scripting"]
 def string = "This is an example blog talking about Groovy and Gradle."
 wordList.inject(false){ acc, value -> acc || string.contains(value)}
 ```
-
+<!-- more -->
 4、读文件
 ```groovy
 new File("data.txt").text

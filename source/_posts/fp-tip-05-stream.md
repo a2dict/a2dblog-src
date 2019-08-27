@@ -9,6 +9,8 @@ tags: fp
 
 Stream的概念和List很相似，但是Stream是状态关于时间的函数，所以理论上允许Stream的长度是无穷的。List不具备处理无穷的能力，所以需要引入`惰性计算`，定义无穷流。
 
+<!-- more -->
+
 ```js
 
 // cons构件

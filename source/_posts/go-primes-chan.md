@@ -8,7 +8,7 @@ Go是一门为并发而生的编程语言，它将协程（goroutine）与CSP（
 goroutine和channel为并发编程提供了流式的组织方式。
 
 Show me the code!!
-
+<!-- more -->
 ```go
 package main
 

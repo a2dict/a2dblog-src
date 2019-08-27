@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 张明栋的博客
+title: a栋的博客
 subtitle:
 description:
 keywords:
@@ -73,7 +73,22 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: yilia
+
+### yilia
+# Content
+# 文章太长，截断按钮文字
+excerpt_link: more
+# 文章卡片右下角常驻链接，不需要请设置为false
+show_all_link: '展开全文'
+# 数学公式
+mathjax: false
+# 是否在新窗口打开链接
+open_in_new: false
+# 自动截断
+auto_excerpt:
+  enable: true
+  length: 150
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
