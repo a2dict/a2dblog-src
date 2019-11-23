@@ -8,7 +8,6 @@ Map<K,V> 是最通用的容器类，几乎所有编程语言都将其加入标�
 在纯函数式编程里，不允许副作用(side-effect)，不允许**状态**，只允许值与函数(ps: 函数也是值)。
 但FP是图灵完备的，可以使用函数模拟**状态**，实现Map容器。
 
-<!-- more -->
 ```js
 // 扩展partition函数
 const last = xs => xs.length > 0 ? xs[xs.length - 1] : null

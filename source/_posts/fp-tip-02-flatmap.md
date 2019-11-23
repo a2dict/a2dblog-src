@@ -5,7 +5,6 @@ tags: fp
 ---
 
 假设某商品接口返回数据如下
-<!-- more -->
 ```js
 let data = {
     "data": {

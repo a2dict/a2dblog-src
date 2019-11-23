@@ -9,7 +9,7 @@ tags: fp
 Go语言虽然不是函数式编程语言，但支持First-class Function（一等函数？即支持函数作为基本数据），所以可能利用部分函数式特性，扩展编程能力。
 
 工作中，需要对结构数据进行内存排序，无奈Go的排序接口特别丑陋，所以产生了扩展函数式排序能力，编写一个比较器的想法。
-<!-- more -->
+
 ```go
 // Go的排序接口
 // A type, typically a collection, that satisfies sort.Interface can be
@@ -27,6 +27,8 @@ type Interface interface {
 ```
 
 我的想法是，将`函数式比较器`和`数据`包装成一种实现`排序接口`的数据类型，这样就可以借助FP的的力量，构建复杂排序器。
+
+<!-- more -->
 
 ```go
 // 函数类型
