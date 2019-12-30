@@ -106,10 +106,9 @@ Lisp宏的元编程能力最强，以至于得到“面向编程语言编程”�
 其实上面代码还可以进一步简化，干掉重复`defreq`。
 ```clojure
 (defmacro defreqs [& methods]
-  (conj 
+  (cons 'do 
    (for [m methods]
-     `(defreq ~m))) 
-  'do)
+     `(defreq ~m))))
 (defreqs get delete head post put options patch propfind proppatch lock unlock report acl copy move)
 ```
 
