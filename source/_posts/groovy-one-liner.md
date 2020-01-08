@@ -1,12 +1,14 @@
 ---
 title: "酷到没朋友的Groovy代码"
 date: 2019-04-15 21:59:20
-tags: groovy
+tags: 编程
 ---
 
 > 原文地址: 
 > https://www.javaworld.com/article/2074145/ten-groovy-one-liners-to-impress-your-friends.html
 > https://www.javaworld.com/article/2074147/ten-more-groovy-one-liners.html
+
+<!-- more -->
 
 1、数组 x2
 

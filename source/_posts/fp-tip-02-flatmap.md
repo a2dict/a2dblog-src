@@ -1,9 +1,10 @@
 ---
-title: "FP技巧02：数据扁平化"
+title: "FP Tip02：数据扁平化"
 date: 2019-03-10 12:58:45
-tags: fp
+tags: 编程
 ---
 
+<!-- more -->
 假设某商品接口返回数据如下
 ```js
 let data = {

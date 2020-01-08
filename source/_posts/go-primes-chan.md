@@ -1,13 +1,15 @@
 ---
 title: go chan 实现质数刷
 date: 2019-03-09 13:15:24
-tags:
+tags: 编程
 ---
 
 Go是一门为并发而生的编程语言，它将协程（goroutine）与CSP（channel）集成进语言中，这是其它编程语言中很少见的。
 goroutine和channel为并发编程提供了流式的组织方式。
 
 Show me the code!!
+
+<!-- more -->
 
 ```go
 package main
