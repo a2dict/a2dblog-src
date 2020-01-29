@@ -6,6 +6,8 @@ tags: 编程
 
 Dogma: 多用**函数**少用**结构体**。
 
+<!-- more -->
+
 ```
 import (
 	"fmt"
