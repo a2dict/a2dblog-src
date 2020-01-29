@@ -1,12 +1,11 @@
 ---
-title: go chanel食用指南
+title: go chanel组织多阶段任务
 date: 2020-01-10 15:10:48
 tags: 编程
 ---
 
-# 一 组织多阶段任务
+Dogma: 多用**函数**少用**结构体**。
 
-<!-- more -->
 ```
 import (
 	"fmt"
