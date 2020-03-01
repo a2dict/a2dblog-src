@@ -8,7 +8,7 @@ Dogma: 多用**函数**少用**结构体**。
 
 <!-- more -->
 
-```
+```go
 import (
 	"fmt"
 	"time"
