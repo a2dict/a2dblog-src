@@ -1,12 +1,15 @@
 ---
-title: "FP Tip02：数据扁平化"
+title: "FP Tip02：flatMap数据解析"
 date: 2019-03-10 12:58:45
 tags: 编程
 ---
 
-假设某商品接口返回数据如下
+用flatMap解析多层级数据。
 
 <!-- more -->
+
+假设某商品接口返回数据如下
+
 ```js
 let data = {
     "data": {
