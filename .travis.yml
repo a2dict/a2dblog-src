@@ -17,9 +17,9 @@ before_install:
 # S: Build Lifecycle
 install:
   - npm install
-  - npm install hexo-deployer-git --save
+  # - npm install hexo-deployer-git --save
 
-before_script:
+# before_script:
  # - npm install -g gulp
 
 script:
@@ -31,3 +31,6 @@ after_script:
   - git config user.email "a2dict@163.com"
   - sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
   - hexo deploy
+
+after_success:
+  - cd public && find . -type f -exec curl -u ${FTP_USER}:${FTP_PASSWD} --ftp-create-dirs -T {} ftp://a2dict.ftp-gz01.bcehost.com/webroot/{} \;
