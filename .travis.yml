@@ -3,6 +3,11 @@ sudo: required
 node_js: 
   - 8.12.0
 
+addons:
+  apt:
+    packages:
+      - ncftp
+
 cache:
   directories:
     - node_modules
@@ -17,9 +22,9 @@ before_install:
 # S: Build Lifecycle
 install:
   - npm install
-  - npm install hexo-deployer-git --save
+  # - npm install hexo-deployer-git --save
 
-before_script:
+# before_script:
  # - npm install -g gulp
 
 script:
@@ -31,3 +36,4 @@ after_script:
   - git config user.email "a2dict@163.com"
   - sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
   - hexo deploy
+  # - ncftpput -u ${FTP_USER} -p ${FTP_PASSWORD} -P 8010 -a -R a2dict.ftp-gz01.bcehost.com webroot public/*
