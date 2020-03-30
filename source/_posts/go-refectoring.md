@@ -1,5 +1,5 @@
 ---
-title: go重构指南
+title: Go重构指南
 date: 2019-12-28 13:17:39
 tags: 编程
 ---
@@ -38,14 +38,35 @@ if version == "v2" {
 ## 4 保持不变性
 
 1. 尽量不修改变量的值
-2. 延迟变量定义。只在需要时才定义
-3. 尽量不写有副作用(side-effect)的，副作用方法注释标记(eg: with-side-effect)
+2. 延迟变量定义。只在需要时才定义，并且定义后尽量不修改
+3. 尽量不写有Side-Effect的方法（eg: 修改参数值、改变全局状态）；带Side-Effect的方法，应该明确标记。如果能像rust的强制**可变引用**就更好了
 
-## 5 职责分离
+## 5 多用func，少用struct
+
+纯函数比带有状态的结构更容易理解。
+当一个方法引用多个Struct时，看代码人肉debug太烧脑。
+
+## 6 函数只传值
+
+函数尽量不要传Client、Conn... 有副作用。
+
 
 # 技巧
 
-1. 多重key Map可以使用KeyType
+## 1 多重key Map可以使用KeyType
+
+```go
+
+var a map[string]map[string]int32
+
+// => 
+type KeyType struct {
+    TagId string
+    AllyId string
+}
+var b map[KeyType]int32
+
+```
 
 
 # 工具篇
