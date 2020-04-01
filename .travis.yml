@@ -36,4 +36,4 @@ after_script:
   - git config user.email "a2dict@163.com"
   - sed -i "s/gh_token/${GH_TOKEN}/g" ./_config.yml
   - hexo deploy
-  - ncftpput -u ${FTP_USER} -p ${FTP_PASSWORD} -P 8010 -R a2dict.ftp-gz01.bcehost.com webroot public/*
+  # - ncftpput -u ${FTP_USER} -p ${FTP_PASSWORD} -P 8010 -R a2dict.ftp-gz01.bcehost.com webroot public/*
