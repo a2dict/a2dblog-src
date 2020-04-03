@@ -1,0 +1,11 @@
+@startuml 
+skinparam monochrome true
+title 依赖反转
+
+package MainPkg {
+interface IA
+Main -> IA
+}
+IA <|-- A : 依赖
+Main ..> A :控制
+@enduml

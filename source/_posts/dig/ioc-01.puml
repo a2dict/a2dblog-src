@@ -1,0 +1,10 @@
+@startuml 
+skinparam monochrome true
+title 依赖与控制
+Main --> A : 依赖
+Main --> B
+
+
+Main ..> A 
+Main ..> B : 控制
+@enduml
