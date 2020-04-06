@@ -31,12 +31,24 @@ if version == "v2" {
 
 ## 2 构建函数抽象
 
-如果一个函数需要查看源码才知道干了什么，那这个函数抽象是不合理的。
+如果一个函数需要查看源码才知道干了什么，那这个函数没有存在必要。
 
 ## 3 构建数据抽象
-有的系统用`"20:30:2|1|3"`表示
+假设系统用`"20:30:24|1001|3443"`表示「用户uid:1001在20点30分观看了id:3443」。
+虽然这条数据很容易人肉解析，但编程中额外考虑实现细节是一种智力负担，应该尽量避免。
+可以如下构建数据抽象
 ```go
-"1269:133:2|10|1|693|693|3|6"
+type WatchEvent struct {
+    Date    string
+    Uid     string
+    MediaID string
+}
+func (e *WatchEvent) Serialize() string {
+    return fmt.Sprintf("%s|%s|%s", e.Date, e.Uid, e.MediaID)
+}
+func ParseWatchEvent(s string ) *WatchEvent {
+    return &WatchEvent{}  // SKIP. you know it!!
+}
 ```
 
 ## 4 保持不变性
@@ -52,7 +64,16 @@ if version == "v2" {
 
 ## 6 函数只传值
 
-函数尽量不要传Client、Conn... 有副作用。
+函数尽量不传Client、Conn... 有副作用。
+若需要传递Client，可以考虑构造struct抽象
+```go
+func UpdateSomething(conn *gorm.DB, t Something)
+// =>
+type ConnWrap struct {
+    conn *gorm.DB
+}
+func (w *ConnWrap) UpdateSomething(t Something)
+```
 
 
 # 技巧
@@ -79,3 +100,5 @@ var b map[KeyType]int32
 
 1. 提取变量
 2. 提取方法
+3. 移动方法
+4. 
