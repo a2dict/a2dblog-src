@@ -1,0 +1,30 @@
+@startuml
+hide members
+'skinparam handwritten true
+
+rectangle controller {
+    class WebController
+}
+
+rectangle service {
+    package file {
+        class FileService
+        interface HBase
+        interface OSS
+    }
+}
+
+rectangle dependency {
+    
+    class HBaseImpl
+    class OSSImpl
+}
+
+WebController --> FileService
+FileService --> HBase
+FileService --> OSS
+
+
+HBase <|--  HBaseImpl
+OSS <|-- OSSImpl
+@enduml

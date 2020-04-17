@@ -1,11 +1,12 @@
 @startuml 
-skinparam monochrome true
+' skinparam monochrome true
+hide members
 title 依赖反转
 
 package MainPkg {
-interface IA
-Main -> IA
+interface IAComp
+Main -> IAComp
 }
-IA <|-- A : 依赖
-Main ..> A :控制
+IAComp <|-- ACompImpl : 依赖
+Main ..> ACompImpl :控制
 @enduml

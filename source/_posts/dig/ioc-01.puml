@@ -1,10 +1,12 @@
 @startuml 
-skinparam monochrome true
+' skinparam monochrome true
+hide members
+
 title 依赖与控制
-Main --> A : 依赖
-Main --> B
+Main --> AComp : 依赖
+Main --> BComp
 
 
-Main ..> A 
-Main ..> B : 控制
+Main ..> AComp
+Main ..> BComp : 控制
 @enduml
