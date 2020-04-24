@@ -10,8 +10,9 @@ tags: [编程, 兴趣]
 > ... 
 > If you haven't programmed before, none of these questions will bother you. You'll accept the way APL does things as natural and convenient. For this reason, APL has traditionally been used by people who are not primarily computer programmers, but who need to write quite sophisticated programs in the course of their work or research - actuaries, engineers, statisticians, biologists, financial analysts, market researchers, and so on. [1]
 
-没错没错，确实挺简单的，而且看着X格还很高(斜眼笑.jpg)
+没错没错，确实挺容易的，而且看着X格还很高(斜眼笑.jpg)
 
+![](./apl-paper.jpg)
 <!-- more -->
 
 # Intro
