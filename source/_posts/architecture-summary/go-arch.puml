@@ -1,0 +1,56 @@
+@startuml
+hide members
+'skinparam handwritten true
+
+rectangle application {
+    class HttpApp
+    class GrpcApp #lightgray
+}
+
+rectangle api {
+    class WebApi
+    class GrpcApi #lightgray
+}
+
+rectangle service {
+    package user {
+        class UserService
+        class UserCmd
+        interface MchDB
+        interface Passport
+        UserService --> MchDB
+        UserService --> Passport
+        UserCmd -> UserService
+    }
+    package file {
+        class FileService
+        class FileCmd
+        interface HBase
+        interface OSS
+        FileService --> HBase
+        FileService --> OSS
+        FileCmd -> FileService
+    }
+}
+
+rectangle dependency {
+    class HBaseImpl
+    class DBImpl
+    class OSSImpl
+    class PassportImpl
+}
+
+HttpApp --> WebApi
+WebApi --> UserService
+WebApi --> FileService
+
+GrpcApp --> GrpcApi
+GrpcApi --> UserService
+GrpcApi --> FileService
+
+MchDB <|-- DBImpl
+Passport <|-- PassportImpl
+HBase <|--  HBaseImpl
+OSS <|-- OSSImpl
+
+@enduml
