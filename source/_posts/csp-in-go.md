@@ -20,7 +20,7 @@ Go原生实现了CSP模型，很方便并发编程
 4. 输出并持久化任务结果
 
 思考下，该系统应该如何设计？
-也许需要两个编程池？accept pool & worker pool？消息传递使用MQ？使用Manager管理整个流程？
+也许需要两个线程池？accept pool & worker pool？消息传递使用MQ？使用Manager管理整个流程？
 
 应用CSP并发模型，系统流程如下
 
@@ -157,3 +157,7 @@ func main() {
 
 任何一种编程技术，背后都代表着某种对问题的抽象和思考方法，并提供解决方案。
 这也是编程技术让人着迷的原因——你总是能和这世界最聪明的人打交道，感受他们的智慧，并解决真实的问题。
+
+## Appendix
+
+- [示例源码](https://github.com/a2dict/goplayground/blob/master/gocsp/main.go)
