@@ -8,7 +8,7 @@ date: 2020-05-15 23:16:15
 
 CSP全称为Communicating Sequential Process，中文名叫*通信顺序进程*，是一种并发编程模型，由Tony Hoare于1977年提出。
 
-在CSP模型中，线程只使用Channel传递消息进行通信，消除“共享状态”，从而简化了并发程序的设计。
+在CSP模型中，线程只使用Channel传递消息进行通信，消除“共享状态”，从而简化了并发程序设计。
 
 Go原生实现了CSP模型，很方便并发编程
 
@@ -20,15 +20,15 @@ Go原生实现了CSP模型，很方便并发编程
 4. 输出并持久化任务结果
 
 思考下，该系统应该如何设计？
-也许需要两个线程池？accept pool & worker pool？消息传递使用MQ？使用Manager管理整个流程？
+也许需要两个线程池？accept pool & worker pool？消息传递使用MQ？用Manager管理整个流程？
 
-应用CSP并发模型，系统流程如下
+应用CSP并发模型，工作流程如下
 
 {% asset_img gocsp.jpg %}
 
 
 在Go中，执行实体为goroutine，goroutine通过context统一管理。
-用**method**，而非**struct**构建该流程，源码如下
+使用用**method**构建流程，源码如下
 
 ```go 
 // 第一步，持久化并生成*任务*
@@ -153,10 +153,10 @@ func main() {
 ## SumUp
 通过这个简单例子，我们看到CSP模型对并发的抽象如何极大简化程序设计。
 
-> Programming is about **Thinking**.
+> Programming is not about typing, it's about thinking. - Rich Hickey
 
 任何一种编程技术，背后都代表着某种对问题的抽象和思考方法，并提供解决方案。
-这也是编程技术让人着迷的原因——你总是能和这世界最聪明的人打交道，感受他们的智慧，并解决真实的问题。
+这也是编程的迷人的之处——你总是能和这世界最聪明的人打交道，感受他们的智慧，并解决真实的问题。
 
 ## Appendix
 
