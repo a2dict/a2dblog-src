@@ -12,6 +12,8 @@ CSP全称为Communicating Sequential Process，中文名叫*通信顺序进程*�
 
 Go原生实现了CSP模型，很方便并发编程
 
+<!-- more -->
+
 ## 栗子
 假设一个消息系统，它接收并处理消息，处理流程如下
 1. 持久化消息
