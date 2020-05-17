@@ -165,11 +165,11 @@ $ go generate ./...
 
 我们就生成了
 ```
-func (m *Pill) Store(key int, value time.Time)
-func (m *Pill) LoadOrStore(key int, value time.Time) (time.Time, bool)
-func (m *Pill) Load(key int) (time.Time, bool)
+func (m *Pill) Store(key int, value *time.Time)
+func (m *Pill) LoadOrStore(key int, value *time.Time) (*time.Time, bool)
+func (m *Pill) Load(key int) (*time.Time, bool)
 func (m *Pill) Delete(key int)
-func (m *Pill) Range(f func(key int, value time.Time) bool
+func (m *Pill) Range(f func(key int, value *time.Time) bool)
 ```
 
 
