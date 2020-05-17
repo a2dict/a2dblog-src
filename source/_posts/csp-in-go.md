@@ -30,72 +30,72 @@ Go原生实现了CSP模型，很方便并发编程
 
 
 在Go中，执行实体为goroutine，goroutine通过context统一管理。
-使用用**method**构建流程，源码如下
+使用**method**构建流程，源码如下
 
 ```go 
 // 第一步，持久化并生成*任务*
 func PersistInComingMessage(ctx context.Context, in <-chan *InComingMessage) <-chan *MessageTask {
-	ret := make(chan *MessageTask)
+    ret := make(chan *MessageTask)
     // 指定协程数量
     threads := 4
-	for i := 0; i < threads; i++ {
-		go func(idx int) {
-			log.Printf("start persisting, id:%v\n", idx)
-			for {
-				select {
-				case <-ctx.Done():
-					log.Printf("stop persisting thread, id:%v\n", idx)
-					return
-				case msg := <-in:
-					// persisting
-					log.Printf("persist msg:%v\n", msg)
+    for i := 0; i < threads; i++ {
+        go func(idx int) {
+            log.Printf("start persisting, id:%v\n", idx)
+            for {
+                select {
+                case <-ctx.Done():
+                    log.Printf("stop persisting thread, id:%v\n", idx)
+                    return
+                case msg := <-in:
+                    // persisting
+                    log.Printf("persist msg:%v\n", msg)
 
-					// new MessageTask
-					t := &MessageTask{
-						TaskID:  msg.MsgID,
-						Content: msg.Content,
-						Callback: func(stat string) {
-							log.Println("task callback..")
-						},
-					}
-					ret <- t
-				}
+                    // new MessageTask
+                    t := &MessageTask{
+                        TaskID:  msg.MsgID,
+                        Content: msg.Content,
+                        Callback: func(stat string) {
+                            log.Println("task callback..")
+                        },
+                    }
+                    ret <- t
+                }
 
-			}
-		}(i)
-	}
-	return ret
+            }
+        }(i)
+    }
+    return ret
 }
 
 // 第二步，异步执行消息任务并生成报告
 func HandleMessageTask(ctx context.Context, in <-chan *MessageTask) <-chan *TaskResult {
-	ret := make(chan *TaskResult)
-	threads := 5
-	for i := 0; i < threads; i++ {
-		go func(idx int) {
-			log.Printf("start task handler, id:%v\n", idx)
-			for {
-				select {
-				case <-ctx.Done():
-					log.Printf("stop task handler, id:%v\n", idx)
-					return
-				case t := <-in:
-					// handle message task and callback
-					log.Printf("handle message task, task:%v\n", t)
-				
+    ret := make(chan *TaskResult)
+    threads := 5
+    for i := 0; i < threads; i++ {
+        go func(idx int) {
+            log.Printf("start task handler, id:%v\n", idx)
+            for {
+                select {
+                case <-ctx.Done():
+                    log.Printf("stop task handler, id:%v\n", idx)
+                    return
+                case t := <-in:
+                    // handle message task and callback
+                    log.Printf("handle message task, task:%v\n", t)
+                
 
-					tr := &TaskResult{
-						TaskID: t.TaskID,
-						Stat:   "success",
-					}
-					ret <- tr
-				}
-			}
+                    tr := &TaskResult{
+                        TaskID: t.TaskID,
+                        Stat:   "success",
+                    }
+                    ret <- tr
+                }
+            }
 
-		}(i)
-	}
+        }(i)
+    }
 
-	return ret
+    return ret
 }
 ```
 
@@ -103,50 +103,50 @@ func HandleMessageTask(ctx context.Context, in <-chan *MessageTask) <-chan *Task
 
 ```go
 func main() {
-	// for graceful shutdown
-	signalC := make(chan os.Signal, 1)
-	signal.Notify(signalC, os.Interrupt, os.Kill, syscall.SIGTERM)
+    // for graceful shutdown
+    signalC := make(chan os.Signal, 1)
+    signal.Notify(signalC, os.Interrupt, os.Kill, syscall.SIGTERM)
 
-	ctx, cancel := context.WithCancel(context.Background())
+    ctx, cancel := context.WithCancel(context.Background())
 
     // 组装Channel流水线。实际代码为这3行！！
-	msgC := make(chan *chain.InComingMessage)
-	taskC := chain.PersistInComingMessage(ctx, msgC)
-	resC := chain.HandleMessageTask(ctx, taskC)
+    msgC := make(chan *chain.InComingMessage)
+    taskC := chain.PersistInComingMessage(ctx, msgC)
+    resC := chain.HandleMessageTask(ctx, taskC)
 
     // 测试
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	f := fuzz.New()
-	// generate message
-	go func() {
-		for {
-			time.Sleep(time.Duration(r.Intn(8)) * time.Second)
-			msg := &chain.InComingMessage{}
-			f.Fuzz(msg)
-			msgC <- msg
-		}
-	}()
+    r := rand.New(rand.NewSource(time.Now().UnixNano()))
+    f := fuzz.New()
+    // generate message
+    go func() {
+        for {
+            time.Sleep(time.Duration(r.Intn(8)) * time.Second)
+            msg := &chain.InComingMessage{}
+            f.Fuzz(msg)
+            msgC <- msg
+        }
+    }()
 
-	// handling task_result
-	go func() {
-		for {
-			select {
-			case <-ctx.Done():
-				log.Printf("stop handling task_result")
-				return
-			case res := <-resC:
-				log.Printf("handling task_result:%v", res)
-			}
+    // handling task_result
+    go func() {
+        for {
+            select {
+            case <-ctx.Done():
+                log.Printf("stop handling task_result")
+                return
+            case res := <-resC:
+                log.Printf("handling task_result:%v", res)
+            }
 
-		}
-	}()
+        }
+    }()
 
     // 优雅关闭
-	<-signalC
-	cancel()
+    <-signalC
+    cancel()
 
-	time.Sleep(3 * time.Second)
-	log.Fatal("exit")
+    time.Sleep(3 * time.Second)
+    log.Fatal("exit")
 
 ```
 
