@@ -9,7 +9,7 @@ tags: 科学
 
 对停机问题最简洁的证明，来自《The Little Schemer》——一本少儿编程启蒙书。
 
-```scm
+```scheme
 ;; eternity
 (define eternity
   (lambda (x) (eternity x)))
